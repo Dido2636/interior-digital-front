@@ -1,15 +1,13 @@
-import './App.css'
+import "./App.css";
+
+import MediaUpload from "./components/MediaUpload";
 
 function App() {
-
-
   return (
     <>
-     
-      <h1>INTERIOR DESIGN</h1>
- 
+      <MediaUpload />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
