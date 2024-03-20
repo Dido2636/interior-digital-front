@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Link} from 'react-router-dom'
+import { Link, useNavigate } from "react-router-dom";
+
 
 function UserForm() {
   const [newUser, setNewUser] = useState({
@@ -9,6 +10,7 @@ function UserForm() {
     email: "",
     password: "",
   });
+  const navigate = useNavigate()
 
   const createUser = async () => {
     try {
@@ -16,13 +18,14 @@ function UserForm() {
         `http://localhost:7890/users/register`,
         newUser
       );
-      // setUsers([...users, response.data]);
+     
       setNewUser({
         name:"",
         firstname: "",
         email: "",
         password: "",
       });
+      navigate("/users/login")
     } catch (error) {
       console.error("Erreur");
     }
@@ -30,61 +33,60 @@ function UserForm() {
 
   return (
     <div>
-      <h2>S'enregistrer</h2>
+     
       <form
         onSubmit={(e) => {
           e.preventDefault();
           createUser();
         }}
-      >
-       
-        <label>
-          Nom:
+        className="form-user">
+        <h2 className="medium-title">Inscrivez-vous</h2>
           <input
+          className="input-field"
             type="text"
             value={newUser.name}
             onChange={(e) =>
               setNewUser({ ...newUser.name, name: e.target.value }
               )}
+              placeholder="Name"
           />
-        </label>
-        <br />
-        <label>
-          Prenom:
+  
           <input
+          className="input-field"
             type="text"
             value={newUser.firstname}
             onChange={(e) =>
               setNewUser({
                 ...newUser, firstname: e.target.value })}
+                placeholder="Prenom"
           />
-        </label>
-        <br />
-        <label>
-          Email:
           <input
+          className="input-field"
             type="email"
             value={newUser.email}
             onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
+            placeholder="Email"
           />
-        </label>
-        <br />
-        <label>
-          Mot de passe:
+
           <input
+          className="input-field"
             type="text"
             value={newUser.password}
             onChange={(e) =>
               setNewUser({ ...newUser, password: e.target.value })
             }
+            placeholder="Mot de passe"
           />
-        </label>
-        <br />
-        <button type="submit">Enregistrer</button>
-      </form>
-      <Link to="/login">
-      <button>SE CONNECTER</button>
+     
+        <button className="btn-login" type="submit">M'inscrire</button>
+        <div className="inscrivez-vous">
+        <p className="small-text">Vous avez un compte !</p>
+      <Link to="/users/login" >
+      <button className="btn-login">Connectez-vous</button>
       </Link>
+        </div>
+      </form>
+      
     </div>
   );
 }
